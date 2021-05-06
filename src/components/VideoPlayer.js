@@ -11,22 +11,22 @@ const VideoPlayer = () => {
 
   const addVideo=()=>{
     setVideos([...videos,{
-      title:'video title',
+      title:title?title:'first video',
       id:uuidv4(),
       video:video
     }])
   }
   const onTitle=(event)=>{
     setTitle(event.target.value)
-    //console.log('title',title)
   }
   const submitTitle =(index) =>{
-    // const data= setVideos(...videos)
-    for(let i=0;i<videos.length;i++){
-      setVideos(videos[i].title=title )
-      //console.log(videos)
+  const result= videos?.map(video =>{
+    if(video.id===index){
+      return {...video,title}
     }
-  
+    else return {...video}
+  })
+  setVideos(result)
   setTitle('')
   }
   return (
@@ -35,7 +35,7 @@ const VideoPlayer = () => {
       <input type="file" onChange={handleChange} />
       <button onClick={addVideo}>+</button>
       <br />
-      {videos && videos.length>0 && videos.map(video=>(
+      {videos && videos?.length>0 && videos?.map(video=>(
         <div key={video.id}>
           <h5>{video.title}</h5>
         <ReactPlayer
